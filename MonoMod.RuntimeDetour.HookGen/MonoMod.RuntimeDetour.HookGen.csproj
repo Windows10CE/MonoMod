@@ -25,6 +25,6 @@
   <ItemGroup>
     <ProjectReference Include="..\MonoMod.RuntimeDetour\MonoMod.RuntimeDetour.csproj" />
     <ProjectReference Include="..\MonoMod.Utils\MonoMod.Utils.csproj" />
-    <ProjectReference Include="..\MonoMod\MonoMod.csproj" />
+    <ProjectReference Include="..\MonoMod.Patcher\MonoMod.Patcher.csproj" />
   </ItemGroup>
 </Project>
