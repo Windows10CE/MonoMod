@@ -15,6 +15,13 @@ using MonoMod.Utils;
 using ExceptionHandler = Mono.Cecil.Cil.ExceptionHandler;
 using MonoMod.Cil;
 using System.Globalization;
+using System.Reflection;
+using ICustomAttributeProvider = Mono.Cecil.ICustomAttributeProvider;
+using MethodAttributes = Mono.Cecil.MethodAttributes;
+using MethodBody = Mono.Cecil.Cil.MethodBody;
+using MethodImplAttributes = Mono.Cecil.MethodImplAttributes;
+using ParameterAttributes = Mono.Cecil.ParameterAttributes;
+using TypeAttributes = Mono.Cecil.TypeAttributes;
 
 #if CECIL0_9
 using InterfaceImplementation = Mono.Cecil.TypeReference;
@@ -419,6 +426,16 @@ namespace MonoMod {
                 LogVerbose($"[MapDependency] {main.Name} -> {dep.Name} ({name}) from cache");
                 mapped.Add(dep);
                 MapDependencies(dep);
+                return;
+            }
+
+            if (name == "MonoMod.RuntimeDetour" || name == "MonoMod.Utils") {
+                var stream = System.Reflection.Assembly.GetEntryAssembly().GetManifestResourceStream("MonoMod.RuntimeDetour.HookGen." + name + ".dll");
+                var asm = _ReadModule(stream, GenReaderParameters(false));
+                DependencyCache[name] = asm;
+                DependencyCache[asm.Assembly.FullName] = asm;
+                mapped.Add(asm);
+                MapDependencies(asm);
                 return;
             }
 

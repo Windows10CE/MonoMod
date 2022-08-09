@@ -12,7 +12,17 @@
     <TargetFrameworks>net35;net452;netstandard2.0</TargetFrameworks>
     <TargetFrameworks Condition="$(MSBuildVersion) &gt;= 16.6.0 And $(NETCoreAppMaximumVersion) &gt;= 5.0">$(TargetFrameworks);net5.0</TargetFrameworks>
     <OutputType>Exe</OutputType>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
+  
+  <ItemGroup>
+    <EmbeddedResource Include="MonoMod.RuntimeDetour.dll" />
+    <EmbeddedResource Include="MonoMod.Utils.dll" />
+  </ItemGroup>
+  
   <Import Project="..\MonoMod.Common.props" />
 
   <!-- Dependencies -->
