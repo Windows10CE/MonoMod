@@ -105,9 +105,9 @@ jobs:
           -l:"trx;LogFileName=$($env:LOG_FILE_NAME).trx" release_${{ fromJSON(inputs.matrix).dotnet.tfm }}/MonoMod.UnitTest.dll
 
     - name: Setup tmate
-      if: ${{ fromJSON(inputs.matrix).dotnet.isMono }}
+      if: ${{ fromJSON(inputs.matrix).dotnet.isMono && fromJSON(inputs.matrix).os.name == 'Linux' && fromJSON(inputs.matrix).dotnet.tfm == 'net8.0' }}
       uses: mxschmitt/action-tmate@v3
-      timeout-minutes: 10
+      timeout-minutes: 60
           
     - name: Run tests (Mono)
       if: ${{ fromJSON(inputs.matrix).dotnet.isMono }}
