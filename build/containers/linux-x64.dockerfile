@@ -28,6 +28,8 @@ RUN apt-get update \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
+RUN echo hello
+
 # Then, user
 RUN useradd -rm -d /home/runner -s /bin/bash -g root -G sudo -u 1001 runner \
     && echo "runner ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/runner \
